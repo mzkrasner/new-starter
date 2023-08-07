@@ -1,0 +1,23 @@
+# Designed to be authored by participating agents
+type PowerUp @createModel(accountRelation: LIST, description: "A mechanism designed to streamline financialized social consensus") {
+    author: DID! @documentAccount
+    recipient: DID! @accountReference
+    templateID: Template!
+    value: Float! @float(min: 0, max: 1)
+    context: String! @string(maxLength: 100000)
+}
+
+type Template {
+  wattType: WattType
+  multiplier: Float!
+}
+
+enum WattType {
+  VWATT 
+  SWATT 
+  CWATT
+  NWATT
+  XWATT
+  LWATT
+  PWATT
+}
