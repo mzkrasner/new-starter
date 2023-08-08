@@ -12,16 +12,13 @@ Install your dependencies:
 npm install
 ```
 
-2. Generate an admin seed and enter it into admin_seed.txt - you can reference our [set up your environment](https://composedb.js.org/docs/0.4.x/set-up-your-environment) page for both this step and the next
-
-3. Generate an admin did from your seed and enter it into composedb.config.json in the admin-dids array
-
-4. In your terminal, run the following to start your Postgres instance:
+2. Generate your admin seed, admin did, and ComposeDB configuration file:
 
 ```bash
-docker-compose up
+npm run generate
 ```
-5. Finally, run your application in a new terminal (first ensure you are running node v16 in your terminal):
+
+3. Finally, run your application in a new terminal (first ensure you are running node v16 in your terminal):
 
 ```bash
 npm run dev
