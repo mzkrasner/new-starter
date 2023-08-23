@@ -23,10 +23,13 @@ npm run generate
 ```bash
 npm run dev
 ```
-a. - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result and generate issuer instances
-b. - Open [http://localhost:3000/context](http://localhost:3000/context) with your browser to see the result and generate context instances
-c. - Open [http://localhost:3000/powerup](http://localhost:3000/powerup) with your browser to generate PowerUP instances - use the stream ID generated from a context instance from the previous step for the Context Stream ID field
-d. - Open [http://localhost:3000/query](http://localhost:3000/query) to test some pre-written queries
+a. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result and generate issuer instances
+
+b. Open [http://localhost:3000/context](http://localhost:3000/context) with your browser to see the result and generate context instances
+
+c. Open [http://localhost:3000/powerup](http://localhost:3000/powerup) with your browser to generate PowerUP instances - use the stream ID generated from a context instance from the previous step for the Context Stream ID field
+
+d. Open [http://localhost:3000/query](http://localhost:3000/query) to test some pre-written queries
 
 ## Learn More
 
