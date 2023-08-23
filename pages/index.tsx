@@ -57,6 +57,9 @@ const Home: NextPage = () => {
         ) {
           document {
             id
+            controller {
+              id
+            }
             agent {
               id
             }

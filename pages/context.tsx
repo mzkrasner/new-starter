@@ -63,45 +63,27 @@ const Home: NextPage = () => {
     }
   };
 
-  const createPower = async () => {
+  const createContext = async () => {
     if (ceramic.did !== undefined) {
       const item = await composeClient.executeQuery(`
       mutation {
-        createPowerUp(
+        createContext(
           input: {
             content: {
-              recipient: "${recipient}"
-              templateID: {
-                wattType: ${power}
-                multiplier: ${Number(mult)}
-              }
-              value: ${Number(num)}
-              contextId: "${context}"
+              entityCreator: "${recipient}"
+              context: "${context}"
             }
           }
         ) {
           document {
+            id
             controller{
               id
             }
-           recipient{
+            entityCreator{
             id
           }
-            templateID{
-              wattType
-              multiplier
-            }
-            value
-            context{
-              id
-              entityCreator{
-                id
-              }
-              controller{
-                id
-              }
-              context
-            }
+            context
           }
           
         }
@@ -139,23 +121,9 @@ const Home: NextPage = () => {
         ) : (
           <>
             <div className={styles.form}>
-              <select onChange={handleChange}>
-                <option value="⬇️ Select a Watt Category ⬇️">
-                  {" "}
-                  -- Select a watt category --{" "}
-                </option>
-                {/* Mapping through each fruit object in our fruits array
-          and returning an option element with the appropriate attributes / values.
-         */}
-                {powers.map((power) => (
-                  <option key={powers.indexOf(power)} value={power.value}>
-                    {power.label}
-                  </option>
-                ))}
-              </select>
               <div className={styles.formGroup}>
                 <label>
-                  Recipient <br></br>
+                Creator of Context: <br></br>
                   <small>
                     (for example:
                     `did:key:z6MkimxmNzE8Zkqnmu4r8Hd35o15X6k8ZALJQv3fdzfh1dB6`)
@@ -168,23 +136,7 @@ const Home: NextPage = () => {
                     setRecipient(e.target.value);
                   }}
                 />
-                <label>Multiplier</label>
-                <input
-                  type="text"
-                  defaultValue={""}
-                  onChange={(e) => {
-                    setMult(e.target.value);
-                  }}
-                />
-                <label>Value 0-1</label>
-                <input
-                  type="text"
-                  defaultValue={""}
-                  onChange={(e) => {
-                    setNum(e.target.value);
-                  }}
-                />
-                <label>Context Stream ID</label>
+                <label>Context: </label>
                 <input
                   type="text"
                   defaultValue={""}
@@ -196,10 +148,10 @@ const Home: NextPage = () => {
               <div className={styles.buttonContainer}>
                 <button
                   onClick={() => {
-                    createPower();
+                    createContext();
                   }}
                 >
-                  {loading ? "Loading..." : "Create PowerUP"}
+                  {loading ? "Loading..." : "Create Context"}
                 </button>
               </div>
             </div>

@@ -50,7 +50,7 @@ const Home: NextPage = () => {
                 edges {
                 node {
                     id
-                    author {
+                    controller {
                         id
                     }
                     agent {
@@ -81,7 +81,7 @@ const Home: NextPage = () => {
                 edges {
                 node {
                     id
-                    author{
+                    controller{
                         id
                       }
                      recipient{
@@ -92,7 +92,63 @@ const Home: NextPage = () => {
                         multiplier
                       }
                       value
-                      context
+                      context{
+                        id
+                        controller{
+                          id
+                        }
+                        entityCreator{
+                          id
+                        }
+                        context
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          } 
+      `);
+      console.log(item);
+      setRes(JSON.stringify(item));
+      setLoading(false);
+    }
+  };
+
+  const getContexts = async () => {
+    if (ceramic.did !== undefined) {
+      const item = await composeClient.executeQuery(`
+      query {
+        node(id: "${ceramic.did._parentId}") {
+            ... on CeramicAccount {
+            contextList(last: 100) {
+                edges {
+                node {
+                    id
+                    controller{
+                        id
+                      }
+                     entityCreator{
+                      id
+                    }
+                      powerUps(last: 100){
+                        edges{
+                          node{
+                            id
+                            templateID{
+                            wattType
+                            multiplier
+                            }
+                            value
+                            controller{
+                              id
+                            }
+                            recipient{
+                              id
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -155,6 +211,14 @@ const Home: NextPage = () => {
                   style={{"width": "15rem",  "margin": "3px"}}
                 >
                   {loading ? "Loading..." : "Get Power Ups"}
+                </button>
+                <button
+                  onClick={() => {
+                    getContexts();
+                  }}
+                  style={{"width": "15rem",  "margin": "3px"}}
+                >
+                  {loading ? "Loading..." : "Get Contexts"}
                 </button>
               </div>
             </div>

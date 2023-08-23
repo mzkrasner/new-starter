@@ -1,0 +1,6 @@
+# Authored by anyone who instantiates a new context
+type Context @createModel(accountRelation: LIST, description: "A model providing specific context at which PowerUp instances can be directed") {
+    controller: DID! @documentAccount
+    entityCreator: DID! @accountReference
+    context: String! @string(maxLength: 100000)
+}
