@@ -15,51 +15,20 @@ import { fromString } from "uint8arrays/from-string";
 const ceramic = new CeramicClient("http://localhost:7007");
 
 /**
- * @param {Ora} spinner - to provide progress status.
+  * Creating composite and deploying to Ceramic
  * @return {Promise<void>} - return void when composite finishes deploying.
  */
-export const writeComposite = async (spinner) => {
+export const writeComposite = async (/** @type {import("ora").Ora} */ spinner) => {
   await authenticate();
   spinner.info("writing composite to Ceramic");
 
-  const issuerComposite = await createComposite(
+  const postComposite = await createComposite(
     ceramic,
-    "./composites/00-Issuer.graphql"
+    "./composites/00-posts.graphql"
   );
-
-  const contextComposite = await createComposite(
-    ceramic,
-    "./composites/01-Context.graphql"
-  );
-
-  const powerUpSchema = readFileSync("./composites/02-PowerUp.graphql", {
-    encoding: "utf-8",
-  }).replace("$CONTEXT_ID", contextComposite.modelIDs[0]);
-
-  const powerUpComposite = await Composite.create({
-    ceramic,
-    schema: powerUpSchema,
-  });
-
-  const contextConnectSchema = readFileSync(
-    "./composites/03-ContextConnect.graphql",
-    {
-      encoding: "utf-8",
-    }
-  )
-    .replace("$POWER_ID", powerUpComposite.modelIDs[1])
-    .replace("$CONTEXT_ID", contextComposite.modelIDs[0]);
-
-  const contextConnectComposite = await Composite.create({
-    ceramic,
-    schema: contextConnectSchema,
-  });
 
   const composite = Composite.from([
-    issuerComposite,
-    contextComposite,
-    powerUpComposite,
-    contextConnectComposite,
+    postComposite
   ]);
   
   await writeEncodedComposite(composite, "./src/__generated__/definition.json");
@@ -84,7 +53,7 @@ export const writeComposite = async (spinner) => {
  * @return {Promise<void>} - return void when DID is authenticated.
  */
 const authenticate = async () => {
-  const seed = readFileSync("./admin_seed.txt");
+  const seed = readFileSync("./admin_seed.txt", { encoding: "utf-8" });
   const key = fromString(seed, "base16");
   const did = new DID({
     resolver: getResolver(),

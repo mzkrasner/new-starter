@@ -1,7 +1,0 @@
-# Designed to be authored by Newcoin
-type Issuer @createModel(accountRelation: LIST, description: "A Souldbound identity proxy measuring creative energy") {
-    controller: DID! @documentAccount
-    agent: DID! @accountReference
-    username: String! @string(maxLength: 250)
-    wattWeight: Float!
-}
