@@ -1,6 +1,8 @@
-# ComposeDB + Newcoin Prototype
+# ComposeDB with LIT Protocol: Message Board
 
-This repo contains a rough first stab at the data models needed for ComposeDB to accommodate Newcoin's PowerUP verifiable credential concept.
+Learn how to use LIT Protocol to encrypt and decrypt data based on on-chain condition logic while storing on ComposeDB, built on the Ceramic Network.
+
+**This branch shows how to authenticate users with web3modal**
 
 ## Getting Started
 
@@ -23,13 +25,6 @@ npm run generate
 ```bash
 npm run dev
 ```
-a. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result and generate issuer instances
-
-b. Open [http://localhost:3000/context](http://localhost:3000/context) with your browser to see the result and generate context instances
-
-c. Open [http://localhost:3000/powerup](http://localhost:3000/powerup) with your browser to generate PowerUP instances - use the stream ID generated from a context instance from the previous step for the Context Stream ID field
-
-d. Open [http://localhost:3000/query](http://localhost:3000/query) to test some pre-written queries
 
 ## Learn More
 
@@ -37,5 +32,8 @@ To learn more about Ceramic please visit the following links
 
 - [Ceramic Documentation](https://developers.ceramic.network/learn/welcome/) - Learn more about the Ceramic Ecosystem.
 - [ComposeDB](https://composedb.js.org/) - Details on how to use and develop with ComposeDB!
-
-You can check out [Create Ceramic App repo](https://github.com/ceramicstudio/create-ceramic-app) and provide us with your feedback or contributions! 
+- [AI Chatbot on ComposeDB](https://learnweb3.io/lessons/build-an-ai-chatbot-on-compose-db-and-the-ceramic-network) - Build an AI-powered Chatbot and save message history to ComposeDB
+- [ComposeDB API Sandbox](https://composedb.js.org/sandbox) - Test GraphQL queries against a live dataset directly from your browser
+- [Ceramic Blog](https://blog.ceramic.network/) - Browse technical tutorials and more on our blog
+- [Ceramic Discord](https://discord.com/invite/ceramic) - Join the Ceramic Discord
+- [Follow Ceramic on Twitter](https://twitter.com/ceramicnetwork) - Follow us on Twitter for latest announcements!
