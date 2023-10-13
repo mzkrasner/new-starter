@@ -1,0 +1,8 @@
+type Confirm @loadModel(id: "$CONFIRM_ID") {
+  id: ID!
+}
+
+# so we can easily determine whether NewCoin has issued a confirmation by simply checking length of this field
+type Attestation @loadModel(id: "$ISSUERATTESTATION_ID") {
+  confirm: [Confirm] @relationFrom(model: "Confirm", property: "attestationId")
+}

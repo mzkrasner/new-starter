@@ -1,0 +1,7 @@
+type PowerUp @loadModel(id: "$POWER_ID") {
+  id: ID!
+}
+
+type Context @loadModel(id: "$CONTEXT_ID") {
+  powerUps: [PowerUp] @relationFrom(model: "PowerUp", property: "contextId")
+}

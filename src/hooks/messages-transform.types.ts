@@ -1,5 +1,4 @@
-import { Message } from "types";
-
+import { Message } from "../../types";
 
 export class MessagesResponse {
   data: Message[];

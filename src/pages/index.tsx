@@ -4,7 +4,6 @@ import styles from "./index.module.css";
 import Chat from "../components/Chat";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { authenticateCeramic } from "../../utils";
 import * as LitJsSdk from "@lit-protocol/lit-node-client";
 import { ILitNodeClient } from "@lit-protocol/types";
 import { WagmiConfig, useAccount } from "wagmi";
@@ -50,7 +49,7 @@ const Home: NextPage = () => {
       {(!isDisconnected) ? (
         <main className={styles.main}>
           {lit && address && <h1 className={styles.title}>
-            ComposeDB <span className={styles.pinkSpan}>with</span> LIT
+            ComposeDB <span className={styles.pinkSpan}>with</span> EAS + NewCoin
           </h1>}
           {lit && address && <Chat address={address?.toLowerCase()} lit={lit} />}
         </main>

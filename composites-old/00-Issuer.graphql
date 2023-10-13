@@ -1,0 +1,24 @@
+# Designed to be approved by Newcoin
+type Issuer @createModel(accountRelation: LIST, description: "A Souldbound identity proxy measuring creative energy") {
+    controller: DID! @documentAccount
+    agent: DID! @accountReference
+    username: String! @string(maxLength: 250)
+    wattWeight: Float!
+    templateId: Template!
+}
+
+type Template {
+  wattType: WattType
+  multiplier: Float!
+}
+
+enum WattType {
+  VWATT 
+  SWATT 
+  CWATT
+  NWATT
+  XWATT
+  LWATT
+  PWATT
+  TVL
+}

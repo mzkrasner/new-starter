@@ -1,0 +1,59 @@
+# Must be approved by NewCoin in the form of a "confirmation"
+type IssuerAttestation @createModel(
+    accountRelation: LIST
+    description: "An attestation for an issuer"
+  )
+  @createIndex(fields: [{ path: ["attester"] }])
+  @createIndex(fields: [{ path: ["recipient"] }])
+  @createIndex(fields: [{ path: ["issuer"] }]) # so we can query and filter by issuer's address
+  @createIndex(fields: [{ path: ["templateType"] }]) # so we can filter by template type
+{
+  publisher: DID! @documentAccount 
+  uid: String! @string(minLength: 66, maxLength: 66)
+  schema: String! @string(minLength: 66, maxLength: 66)
+  attester: String! @string(minLength: 42, maxLength: 42)
+  verifyingContract: String! @string(minLength: 42, maxLength: 42)
+  easVersion: String! @string(maxLength: 5)
+  version: Int!
+  chainId: Int! 
+  r: String! @string(minLength: 66, maxLength: 66)
+  s: String! @string(minLength: 66, maxLength: 66)
+  v: Int! 
+  types: [Types] @list(maxLength: 100)
+  templateType: Template
+  recipient: String @string(minLength: 42, maxLength: 42)
+  issuer: String @string(minLength: 42, maxLength: 42)
+  expirationTime: DateTime
+  revocationTime: DateTime
+  refUID: String @string(minLength: 66, maxLength: 66)
+  time: Int! 
+  data: String! @string(maxLength: 1000000)
+}
+
+type Types {
+  name: String! @string(maxLength: 20)
+  type: String! @string(maxLength: 20)
+}
+
+type Template {
+  wattType: WattType
+  multiplier: Float!
+}
+
+enum WattType {
+  VWATT 
+  SWATT 
+  CWATT
+  NWATT
+  XWATT
+  LWATT
+  PWATT
+  TVL
+}
+
+# Recipient will be NewCoin since they will be the ones approving the attestation
+# The "schema" field will contain the encoded values signed by the entity creating the attestation:
+# [{ name: "issuer", type: "address", value: <issuer's address> }, 
+#  { name: "wattType", type: "string", value: <must be string representation of "WattType" enum values> }
+#  { name: "multiplier", type: "string", value: <float between 0 and 1> }]
+

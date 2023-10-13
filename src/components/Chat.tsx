@@ -87,11 +87,11 @@ const Chat = ({ address, lit }: ChatProps) => {
     <div className="max-w-xxl mx-auto mt-32 w-5/6 min-h-200">
       <div className="flex flex-row justify-between items-center py-2"></div>
       <div className="bg-white border border-gray-200 rounded-lg shadow relative">
+        <h2 className="font-bold">Create Issuer Example</h2>
         <ChatHeader
           name={address}
           numberOfMessages={chatMessages ? chatMessages.length : 0}
         />
-        {chatMessages && <ChatContent messages={chatMessages} lit={lit} />}
         <ChatInputBox sendANewMessage={sendANewMessage} address={address} lit={lit}/>
       </div>
     </div>

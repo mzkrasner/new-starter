@@ -7,6 +7,15 @@ import { writeComposite } from './composites.mjs';
 const events = new EventEmitter()
 const spinner = ora();
 
+const credentials = async () => {
+  spinner.info("[Ceramic] creating admin credentials");
+  const admin = spawn('npm', ['run', 'generate'])
+  spinner.succeed("Ceramic] admin credentials created");
+  admin.stdout.on('data', (buffer) => {
+    console.log('[Ceramic]', buffer.toString())
+  })
+}
+
 const ceramic = spawn("npm", ["run", "ceramic"]);
 ceramic.stdout.on("data", (buffer) => {
   console.log('[Ceramic]', buffer.toString())
@@ -21,9 +30,6 @@ ceramic.stderr.on('data', (err) => {
 })
 
 const bootstrap = async () => {
-  // TODO: convert to event driven to ensure functions run in correct orders after releasing the bytestream.
-  // TODO: check if .grapql files match their .json counterparts
-  //       & do not create the model if it already exists & has not been updated
   try {
     spinner.info("[Composites] bootstrapping composites");
     await writeComposite(spinner)
@@ -54,6 +60,7 @@ const next = async () => {
 
 const start = async () => {
   try {
+    await credentials()
     spinner.start('[Ceramic] Starting Ceramic node\n')
     events.on('ceramic', async (isRunning) => {
       if (isRunning) {
