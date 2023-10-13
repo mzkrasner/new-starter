@@ -1,8 +1,8 @@
-# ComposeDB with LIT Protocol: Message Board
+# ComposeDB + Newcoin Prototype
 
-Learn how to use LIT Protocol to encrypt and decrypt data based on on-chain condition logic while storing on ComposeDB, built on the Ceramic Network.
+This repo contains a rough first stab at the data models needed for ComposeDB to accommodate Newcoin's PowerUP verifiable credential concept.
 
-**This branch shows how to authenticate users with web3modal**
+**This branch uses attestations with EAS and shows how to authenticate users with web3modal**
 
 ## Getting Started
 
@@ -14,11 +14,7 @@ Install your dependencies:
 npm install
 ```
 
-2. Generate your admin seed, admin did, and ComposeDB configuration file:
-
-```bash
-npm run generate
-```
+2. Create a .env file at the root of your directory - look in the existing .env.example file for guidance
 
 3. Finally, run your application in a new terminal (first ensure you are running node v16 in your terminal):
 
