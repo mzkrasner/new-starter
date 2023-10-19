@@ -14,6 +14,7 @@ import { toBytes } from "viem";
 import { EIP712DomainTypedData, EIP712MessageTypes, Signature } from "@ethereum-attestation-service/eas-sdk/dist/offchain/typed-data-handler";
 import { request } from "http";
 import { FullAttestation } from "../../utils/types";
+import { set } from "zod";
 
 interface ChatInputBoxProps {
   sendANewMessage: (message: Message) => void;
@@ -200,6 +201,9 @@ const ChatInputBox = ({ sendANewMessage, address, lit }: ChatInputBoxProps) => {
     `);
     console.log(data);
     setResult(JSON.stringify(data));
+    setNewIssuer('');
+    setMultiplier(undefined);
+    setPower(undefined);
   }
 
   return (

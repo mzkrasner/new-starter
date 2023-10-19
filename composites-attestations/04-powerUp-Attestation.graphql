@@ -55,6 +55,7 @@ enum WattType {
   TVL
 }
 
+
 # Recipient will be the address of the individual that will receive the attestation
 # The "schema" field will contain the encoded values signed by the entity creating the attestation:
 # [{ name: "issuer", type: "address", value: <issuer's address> }, 

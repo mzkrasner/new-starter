@@ -1,0 +1,14 @@
+type PowerUpAttestation @loadModel(id: "$POWERATTESTATION_ID") {
+  id: ID!
+}
+
+# Anyone can consume a PowerUp - WHO consumes it is what matters
+type ConsumePowerUp
+  @createModel(
+    accountRelation: LIST
+    description: "A model indicating consumption of a PowerUp instance"
+  ) {
+  controller: DID! @documentAccount
+  powerUpId: StreamID! @documentReference(model: "PowerUpAttestation")
+  powerUp: PowerUpAttestation! @relationDocument(property: "powerUpId")
+}

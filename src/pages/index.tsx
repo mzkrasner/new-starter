@@ -48,9 +48,7 @@ const Home: NextPage = () => {
       </Head>
       {(!isDisconnected) ? (
         <main className={styles.main}>
-          {lit && address && <h1 className={styles.title}>
-            ComposeDB <span className={styles.pinkSpan}>with</span> EAS + NewCoin
-          </h1>}
+
           {lit && address && <Chat address={address?.toLowerCase()} lit={lit} />}
         </main>
       ) : (

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import ChatHeader from "../fragments/chatheader";
-import ChatContent from "../fragments/chatcontent";
+import PowerUp from "../fragments/powerup";
+import Consume from "../fragments/consume";
+import Context from "../fragments/context";
 import ChatInputBox from "../fragments/chatinputbox";
 import { Post, Message } from "../../types";
 import { ILitNodeClient } from "@lit-protocol/types";
@@ -13,53 +15,7 @@ const Chat = ({ address, lit }: ChatProps) => {
   const { compose, isAuthenticated } = useComposeDB()
 
 
-  const getMessages = async () => {
-    const posts = await compose.executeQuery<{
-      postsIndex: {
-        edges: {
-          node: Post;
-        }[];
-      };
-    }>(`
-    query {
-        postsIndex (last:20) {
-          edges {
-            node {
-              id
-              author{
-                id
-              }
-              body
-              to
-              created
-              ciphertext
-              chain
-              accessControlConditions
-              accessControlConditionType
-            }
-          }
-        }
-      }
-    `);
-    console.log(posts)
-    const messageArray: Message[] = [];
-    if(posts.data && posts.data.postsIndex === null){
-      return
-    }
-    if (posts.data && posts.data.postsIndex) {
-      posts.data.postsIndex.edges.forEach((el: { node: Post }) => {
-        messageArray.push({
-          text: el.node.body,
-          sentBy: el.node.author.id.split(':')[4]!!,
-          sentAt: new Date(el.node.created),
-          isChatOwner: address === el.node.author.id.split(':')[4]!!,
-          ...el.node
-        });
-      });
-    }
-    setChatMessages(messageArray);
-    // console.log(messages)
-  };
+  
 
   /** State to control new messages */
 
@@ -80,7 +36,7 @@ const Chat = ({ address, lit }: ChatProps) => {
    */
 
   useEffect(() => {
-    getMessages();
+    // getMessages();
   }, []);
 
   return (
@@ -94,6 +50,36 @@ const Chat = ({ address, lit }: ChatProps) => {
         />
         <ChatInputBox sendANewMessage={sendANewMessage} address={address} lit={lit}/>
       </div>
+      <br></br>
+      <div className="bg-white border border-gray-200 rounded-lg shadow relative">
+        <h2 className="font-bold">Create a Context</h2>
+        <ChatHeader
+          name={address}
+          numberOfMessages={chatMessages ? chatMessages.length : 0}
+        />
+        <Context sendANewMessage={sendANewMessage} address={address} lit={lit}/>
+      </div>
+      <br></br>
+      <div className="bg-white border border-gray-200 rounded-lg shadow relative">
+        <h2 className="font-bold">Create PowerUp Instance</h2>
+        <p>Copy the blue StreamID from "Create a Context" above into "Context Stream ID"</p>
+        <ChatHeader
+          name={address}
+          numberOfMessages={chatMessages ? chatMessages.length : 0}
+        />
+        <PowerUp sendANewMessage={sendANewMessage} address={address} lit={lit}/>
+      </div>
+      <br></br>
+      <div className="bg-white border border-gray-200 rounded-lg shadow relative">
+        <h2 className="font-bold">Consume a PowerUp</h2>
+        <p>Copy the blue StreamID from "Create a PowerUp Instance" above into "PowerUp Stream ID"</p>
+        <ChatHeader
+          name={address}
+          numberOfMessages={chatMessages ? chatMessages.length : 0}
+        />
+        <Consume sendANewMessage={sendANewMessage} address={address} lit={lit}/>
+      </div>
+      <br></br>
     </div>
   );
 };

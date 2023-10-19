@@ -84,6 +84,32 @@ export const writeComposite = async (spinner) => {
     schema: contextConnectSchema,
   });
 
+  const consumePowerSchema = readFileSync(
+    "./composites-attestations/06-PowerUpConsume.graphql",
+    {
+      encoding: "utf-8",
+    }
+  ).replace("$POWERATTESTATION_ID", powerUpComposite.modelIDs[1] ?? "");
+
+  const consumePowerComposite = await Composite.create({
+    ceramic,
+    schema: consumePowerSchema,
+  });
+
+  const consumeConnectSchema = readFileSync(
+    "./composites-attestations/07-ConsumeConnect.graphql",
+    {
+      encoding: "utf-8",
+    }
+  )
+    .replace("$CONSUME_ID", consumePowerComposite.modelIDs[1] ?? "")
+    .replace("$POWERATTESTATION_ID", powerUpComposite.modelIDs[1] ?? "");
+
+  const consumeConnectComposite = await Composite.create({
+    ceramic,
+    schema: consumeConnectSchema,
+  });
+
   const composite = Composite.from([
     issuerComposite,
     issuerConfirmComposite,
@@ -91,6 +117,8 @@ export const writeComposite = async (spinner) => {
     contextComposite,
     powerUpComposite,
     contextConnectComposite,
+    consumePowerComposite,
+    consumeConnectComposite
   ]);
 
   await writeEncodedComposite(composite, "./src/__generated__/definition.json");

@@ -49,9 +49,26 @@ export interface Attestation {
   data: string
 }
 
+export type Template = {
+  wattType: WattType
+  multiplier: number
+}
+
+export enum WattType{
+  VWATT, 
+  SWATT, 
+  CWATT,
+  NWATT,
+  XWATT,
+  LWATT,
+  PWATT,
+  TVL
+}
+
 export interface FullAttestation {
   id: string
   attester: string
+  templateType: Template
   recipient: string
   issuer: string
   refUID: string

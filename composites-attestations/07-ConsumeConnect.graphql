@@ -1,0 +1,7 @@
+type ConsumePowerUp @loadModel(id: "$CONSUME_ID") {
+  id: ID!
+}
+
+type PowerUpAttestation @loadModel(id: "$POWERATTESTATION_ID") {
+  consumeInstances: [ConsumePowerUp] @relationFrom(model: "ConsumePowerUp", property: "powerUpId")
+}
